@@ -27,4 +27,4 @@ number = int(input("Enter a whole number: "))
 
 result = check_number(number) 
 
-print(f"{number} is {result}.") 
+print(f"{number} is an {result} number.") 
