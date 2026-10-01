@@ -18,7 +18,7 @@ print(f"Area: {area:.2f}")
 print(f"Perimeter: {perimeter:.2f}") 
 
 def check_number(number):## return "even" if the number is even and "odd" if the number is odd.
-    if number % 2 == 0:
+    if number / 2 == 0:
         return "even"
     else:
         return "odd"
