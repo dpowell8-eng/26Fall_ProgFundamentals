@@ -5,25 +5,26 @@ cafe_name = "Python Café"
 
 print(f"Welcome to {cafe_name}!")
 
-
 def greet_user(name):
     """Return a greeting message for the user with their name."""
-    return f"Welcome to {cafe_name}, {name}!"
-
+    return f"Welcome to {cafe_name}, {name}!" 
 
 user_name = input("Enter name: ")
 message = greet_user(user_name)
-print(message)
+print(message) 
 
-is_reward_user= input("Are you a rewards member?(y/n): ")
-if is_reward_user.lower() == "Y": 
+# --- Fixed: Combined Rewards and Discount Logic ---
+is_reward_user = input("Are you a rewards member? (y/n): ").strip().lower()
+if is_reward_user == "y": 
     discount = 0.1  # 10% discount
 else:
-    discount = 0.1
+    discount = 0.0
 
-    print(f"what would like to oder today, {user_name}?")
-print("Menu")
-Menu= {
+tax_rate = 0.08 
+
+print(f"\nWhat would you like to order today, {user_name}?")
+print("--- Menu ---")
+Menu = {
     "espresso": 3.00,
     "latte": 4.50,
     "cappuccino": 4.25,
@@ -31,34 +32,47 @@ Menu= {
     "muffin": 2.50,
     "croissant": 3.25,
 }
-print("Menu:")
-for item, price in Menu.items():
-    print(f"- {item}: ${price:.2f}")
-order = [] 
 
-# --- NEW: Order Collection Loop ---
+for item, price in Menu.items():
+    print(f"{item.capitalize()}: ${price:.2f}")
+
+# --- Fixed: Order Collection Loop ---
 order = []
-print("\nEnter the items you want to order one by one. Type 'done' when you are finished.")
+print("\nEnter the items you want to order one by one.")
+print("Type 'remove' to delete an item, or 'done' when you are finished.") 
 
 while True:
-    selection = input("Add item: ").strip().lower()
+    selection = input("\nAdd item (or 'remove'/'done'): ").strip().lower()
+    
     if selection == "done":
         break
+        
+    elif selection == "remove":
+        if not order:
+            print("Your order is currently empty. Nothing to remove.")
+        else:
+            item_to_remove = input("What item would you like to remove? ").strip().lower()
+            if item_to_remove in order:
+                order.remove(item_to_remove) 
+                print(f"Removed '{item_to_remove}' from your order.")
+            else:
+                print(f"Sorry, '{item_to_remove}' is not in your current order.") 
+                
     elif selection in Menu:
         order.append(selection)
-        print(f"Added {selection} to your order.")
+        print(f"Added '{selection}' to your order. Current items: {len(order)}")
+        
     else:
-        print("Sorry, that item is not on the menu. Please try again.")
+        print("Sorry, that item is not on our menu. Please try again.")
 
-# --- NEW: Total and Receipt Calculation ---
+# --- Total and Receipt Calculation ---
 if order:
     print("\n--- Your Receipt ---")
     subtotal = 0.0
 
-    # Print each selected item and add up the subtotal
     for item in order:
-        price = menu[item]
-        subtotal += price
+        price = Menu[item]
+        subtotal += price  
         print(f"{item.capitalize()}: ${price:.2f}")
 
     # Calculations
@@ -77,24 +91,3 @@ if order:
     print("-" * 20)
 else:
     print("\nYou didn't order anything today. See you next time!")
-tax_rate = 0.08
-
-if is_reward_user.lower() == "N":
-    discount = 0.0
-else:
-    discount = 0
-
-Menu= {
-    "espresso": 3.00,
-    "latte": 4.50,
-    "cappuccino": 4.25,
-    "mocha": 5.00,
-    "muffin": 2.50,
-    "croissant": 3.25,
-}
-print("Menu:")
-for item, price in Menu.items():
-    print(f"- {item}: ${price:.2f}")
-order = [] 
-
-   
