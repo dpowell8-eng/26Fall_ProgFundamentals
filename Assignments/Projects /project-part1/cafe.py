@@ -1,6 +1,6 @@
-import math
 
-print("*** Python Café ***")
+
+print("Python Café ")
 user_name = input("What's your name? ").strip()
 print(f"Welcome to {user_name}!")
 
@@ -112,6 +112,3 @@ while True:
     # ERROR HANDLING FOR INVALID MENU NUMBERS
     else:
         print("Please choose a number from 1 to 5.")
-
-
-
